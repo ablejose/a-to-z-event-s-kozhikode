@@ -1,0 +1,33 @@
+{
+  "slug": "a-to-z-event-s-kozhikode",
+  "name": "A TO Z Event's",
+  "shortName": "A TO Z Event's",
+  "descriptor": "Event Management",
+  "address": "Arayidathupalam, Kozhikode, Keralam 673004",
+  "area": "Arayidathupalam",
+  "city": "Kozhikode",
+  "district": "Kozhikode",
+  "region": "Kerala",
+  "postalCode": "673004",
+  "geo": {
+    "lat": 11.2577787,
+    "lng": 75.7887452
+  },
+  "mapsLink": "https://maps.google.com/?cid=6016613495932240950",
+  "phone": "+91 79077 52360",
+  "whatsapp": "917907752360",
+  "hours": "Open 24 hours · all days",
+  "opens": "00:00",
+  "closes": "23:59",
+  "rating": 0,
+  "reviewCount": 0,
+  "reviews": [],
+  "gallery": [
+    "gallery/01.webp",
+    "gallery/02.webp",
+    "gallery/03.webp",
+    "gallery/04.webp",
+    "gallery/05.webp"
+  ],
+  "url": "https://a-to-z-event-s-kozhikode.vercel.app"
+}
