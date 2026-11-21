@@ -386,8 +386,8 @@ export const templateCopy = {
   },
 
   theme: {
-    themeColor: "#241C15",
-    backgroundColor: "#FDFAF3",
+    themeColor: "#1A1A24",
+    backgroundColor: "#F8F7F3",
   },
 } as const;
 

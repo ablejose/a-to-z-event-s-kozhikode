@@ -11,7 +11,7 @@ export const seo = {
   title: t(s.title),
   titleTemplate: t(s.titleTemplate),
   description: event.seo?.description ?? t(s.description),
-  ogDescription: t(s.ogDescription),
+  ogDescription: event.seo?.description ?? t(s.ogDescription),
   keywords: [...s.keywords.map(t), ...(event.seo?.keywords ?? [])],
   category: s.category,
   locale: s.locale,
@@ -21,7 +21,7 @@ export const seo = {
 /** LocalBusiness structured data for the active event. */
 export const jsonLd = {
   "@context": "https://schema.org",
-  "@type": ["LocalBusiness", "Caterer", "FoodEstablishment"],
+  "@type": ["LocalBusiness"],
   "@id": `${site.url}/#business`,
   name: site.fullName,
   alternateName: site.name,

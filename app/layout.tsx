@@ -1,20 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Manrope } from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { brandAssets, copy, icon, site } from "@/config/site";
 import { event } from "@/event.config";
 import { jsonLd, seo } from "@/config/seo";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
-import WhatsAppFab from "@/components/WhatsAppFab";
-import Loader from "@/components/Loader";
 
 /**
  * Every value below is derived from the active event config (event.config.ts).
  * Do not hardcode a business name, town or phone number in this file.
  */
-const fraunces = Fraunces({ subsets: ["latin"], display: "swap", variable: "--font-fraunces" });
-const manrope = Manrope({ subsets: ["latin"], display: "swap", variable: "--font-manrope" });
+const fraunces = Cormorant_Garamond({ weight: ["400", "500", "600"], style: ["normal", "italic"], subsets: ["latin"], display: "swap", variable: "--font-fraunces" });
+const manrope = Inter({ subsets: ["latin"], display: "swap", variable: "--font-manrope" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -98,11 +96,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body style={themeStyle}>
-        <Loader />
+        <a className="skip-link" href="#main-content">Skip to content</a>
         <SmoothScroll>
           <Header />
           {children}
-          <WhatsAppFab />
+
         </SmoothScroll>
       </body>
     </html>

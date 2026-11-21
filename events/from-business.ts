@@ -12,6 +12,10 @@ import { templateMenu, templateMenuPresets } from "@/config/template";
  */
 export interface BusinessInput {
   slug: string;
+  tagline?: string;
+  variant?: EventConfig["variant"];
+  media?: Partial<EventConfig["media"]>;
+  seo?: EventConfig["seo"];
   /** Full business name, cleaned (used for SEO + footer). */
   name: string;
   /** Big display word(s) for hero/header/loader. Falls back to `name`. */
@@ -90,14 +94,14 @@ export function fromBusiness(b: BusinessInput): EventConfig {
 
   return {
     slug: b.slug,
-    variant: "catering",
+    variant: b.variant ?? "events",
     brand: {
       name: b.shortName || b.name,
       fullName: b.name,
       descriptor,
       kicker: descriptor,
-      tagline: "Weddings & events, catered with care.",
-      headline: "Unforgettable feasts. Flawless celebrations.",
+      tagline: b.tagline ?? descriptor,
+      headline: b.tagline ?? descriptor,
     },
     contact: { phone: b.phone, whatsapp: b.whatsapp, email: b.email || undefined },
     location: {
@@ -122,15 +126,15 @@ export function fromBusiness(b: BusinessInput): EventConfig {
     reputation: { rating: b.rating ?? 0, reviews: b.reviewCount ?? 0 },
     media: {
       base: `/events/${b.slug}`,
-      heroPoster: STOCK.heroSlides[0].src,
-      heroSlides: STOCK.heroSlides,
-      ogImage: STOCK.ogImage,
-      brandDir: STOCK.brandDir,
-      about: STOCK.about,
+      heroPoster: typeof b.media?.heroSlides?.[0] === "object" ? b.media.heroSlides[0].src : STOCK.heroSlides[0].src,
+      heroSlides: b.media?.heroSlides ?? STOCK.heroSlides,
+      ogImage: b.media?.ogImage ?? STOCK.ogImage,
+      brandDir: b.media?.brandDir ?? STOCK.brandDir,
+      about: b.media?.about ?? [],
       gallery: b.gallery.map((src, i) => ({ src, alt: `${b.name} — event photo ${i + 1}` })),
     },
     reviews: (b.reviews ?? []).map((r) => ({ ...r, source: "Google review" })),
-    seo: { keywords: uniq([b.name, b.shortName, `${b.shortName || b.name} ${b.city}`]) },
-    overrides: { menu: neutralMenu, menuPresets: neutralPresets },
+    seo: b.seo ?? { keywords: uniq([b.name, b.shortName, `${b.shortName || b.name} ${b.city}`]) },
+    overrides: { menu: [], menuPresets: [] },
   };
 }

@@ -1,8 +1,8 @@
 {
   "slug": "a-to-z-event-s-kozhikode",
   "name": "A TO Z Event's",
-  "shortName": "A TO Z Event's",
-  "descriptor": "Event Management",
+  "shortName": "A TO Z",
+  "descriptor": "Events & Celebrations",
   "address": "Arayidathupalam, Kozhikode, Keralam 673004",
   "area": "Arayidathupalam",
   "city": "Kozhikode",
@@ -16,18 +16,91 @@
   "mapsLink": "https://maps.google.com/?cid=6016613495932240950",
   "phone": "+91 79077 52360",
   "whatsapp": "917907752360",
-  "hours": "Open 24 hours · all days",
+  "hours": "Open 24 hours Â· all days",
   "opens": "00:00",
   "closes": "23:59",
   "rating": 0,
   "reviewCount": 0,
   "reviews": [],
-  "gallery": [
-    "gallery/01.webp",
-    "gallery/02.webp",
-    "gallery/03.webp",
-    "gallery/04.webp",
-    "gallery/05.webp"
-  ],
-  "url": "https://a-to-z-event-s-kozhikode.vercel.app"
+  "gallery": [],
+  "url": "https://a-to-z-event-s-kozhikode.vercel.app",
+  "tagline": "We Plan. We Decorate. We Celebrate!",
+  "variant": "events",
+  "instagram": "https://www.instagram.com/a_to_z_events3/",
+  "seo": {
+    "description": "A TO Z Event’s in Arayidathupalam, Kozhikode. Stage decoration, celebrations, catering and Nasik Dhol. Explore our work and plan your event on WhatsApp.",
+    "keywords": [
+      "A TO Z Events Kozhikode",
+      "stage decoration Kozhikode",
+      "event management Calicut",
+      "Nasik Dhol Kozhikode"
+    ]
+  },
+  "media": {
+    "heroVideo": "video/hero.mp4",
+    "heroVideoPortrait": "video/hero-portrait.mp4",
+    "heroSlides": [
+      {
+        "src": "video/hero.webp",
+        "alt": "An evening stage with a circular red floral arch, grey loveseat and warm spotlights"
+      }
+    ],
+    "heroPortraitPoster": "video/hero-portrait.webp",
+    "ogImage": "brand/og-image.jpg",
+    "brandDir": "brand",
+    "about": [
+      {
+        "src": "about/stage.webp",
+        "alt": "A blush loveseat beneath a pastel floral arch and warm hanging lights"
+      },
+      {
+        "src": "about/team.webp",
+        "alt": "Drummers in turquoise shirts performing among guests at an indoor celebration"
+      }
+    ],
+    "stages": [
+      {
+        "src": "stages/floral-arch.webp",
+        "alt": "Blush loveseat beneath a pastel floral arch against ivory drapes and warm lights",
+        "title": "A little romance, in every detail.",
+        "label": "FLORAL STAGE",
+        "category": "Stages & décor"
+      },
+      {
+        "src": "stages/rose-stage.webp",
+        "alt": "A red rose wall with gold initials above a mauve loveseat and white flowers",
+        "title": "A backdrop made for your moment.",
+        "label": "ROSE RECEPTION",
+        "category": "Stages & décor"
+      },
+      {
+        "src": "stages/birthday.webp",
+        "alt": "Outdoor birthday backdrop with yellow flowers, a glowing Happy Birthday sign and a white cake table",
+        "title": "Another year. A beautiful memory.",
+        "label": "BIRTHDAY CELEBRATION",
+        "category": "Celebrations"
+      },
+      {
+        "src": "stages/traditional.webp",
+        "alt": "A wooden ceremonial seat against green foliage and marigold garlands in a decorated room",
+        "title": "Traditions, thoughtfully celebrated.",
+        "label": "FAMILY CELEBRATION",
+        "category": "Celebrations"
+      }
+    ],
+    "reels": [
+      {
+        "src": "video/garden.mp4",
+        "poster": "video/garden.webp",
+        "label": "Under an open sky",
+        "alt": "A garden canopy with red and ivory drapes, flowers and a small white seat"
+      },
+      {
+        "src": "video/dhol.mp4",
+        "poster": "video/dhol.webp",
+        "label": "Feel the celebration",
+        "alt": "Nasik Dhol drummers performing as guests dance at an indoor event"
+      }
+    ]
+  }
 }
