@@ -1,5 +1,5 @@
-import type { EventConfig, MenuPreset } from "@/config/event-schema";
-import { templateMenu, templateMenuPresets } from "@/config/template";
+import type { EventConfig, EventImage, EventVariant, GalleryEntry, MenuCategory, MenuPreset } from "@/config/event-schema";
+import { templateMenu, templateMenuPresets, templateServices } from "@/config/template";
 
 /**
  * ONE BUSINESS, AS THE SITE GENERATOR WRITES IT.
@@ -12,16 +12,18 @@ import { templateMenu, templateMenuPresets } from "@/config/template";
  */
 export interface BusinessInput {
   slug: string;
-  tagline?: string;
-  variant?: EventConfig["variant"];
-  media?: Partial<EventConfig["media"]>;
-  seo?: EventConfig["seo"];
   /** Full business name, cleaned (used for SEO + footer). */
   name: string;
   /** Big display word(s) for hero/header/loader. Falls back to `name`. */
   shortName?: string;
   /** Small line under the name, e.g. "Catering & Events". */
   descriptor?: string;
+  /** What the business leads with — drives section copy. Defaults to "catering". */
+  variant?: EventVariant;
+  /** Their own hero line; without it every site shares the template's. */
+  headline?: string;
+  tagline?: string;
+  aboutBody?: string;
 
   address: string;
   street?: string;
@@ -50,7 +52,38 @@ export interface BusinessInput {
   reviews?: { name: string; rating: number; quote: string }[];
 
   /** Their own photos, relative to /events/<slug>/ — e.g. "gallery/01.jpg". */
-  gallery: string[];
+  gallery: GalleryEntry[];
+
+  /** Their own media, relative to /events/<slug>/. Anything left out stays template stock. */
+  media?: {
+    heroSlides?: EventImage[];
+    about?: EventImage[];
+    logoMark?: string;
+    ogImage?: string;
+    brandDir?: string;
+    reel?: { src: string; poster: string; alt: string };
+  };
+  /** Their own photo for a shared service card, keyed by card id (config/template.ts). */
+  serviceImages?: Record<string, string>;
+  /** Towns for schema.org areaServed; defaults to city, area and district. */
+  serviceAreas?: string[];
+  /** One line shown in the footer instead of the service-area list, e.g. "Service across Kerala". */
+  serviceNote?: string;
+  /** Brand colours (hex). */
+  theme?: { primary: string; accent: string };
+  /** Their own menu for the quote builder; replaces the shared Kerala menu. */
+  menu?: MenuCategory[];
+  menuPresets?: MenuPreset[];
+
+  /** Their own search copy and Search Console / Bing verification codes; anything left out is generated. */
+  seo?: {
+    title?: string;
+    description?: string;
+    ogDescription?: string;
+    keywords?: string[];
+    googleSiteVerification?: string;
+    bingSiteVerification?: string;
+  };
 
   /** Live site origin, no trailing slash. */
   url: string;
@@ -94,14 +127,14 @@ export function fromBusiness(b: BusinessInput): EventConfig {
 
   return {
     slug: b.slug,
-    variant: b.variant ?? "events",
+    variant: b.variant ?? "catering",
     brand: {
       name: b.shortName || b.name,
       fullName: b.name,
       descriptor,
       kicker: descriptor,
-      tagline: b.tagline ?? descriptor,
-      headline: b.tagline ?? descriptor,
+      tagline: b.tagline || "Weddings & events, catered with care.",
+      headline: b.headline || "Unforgettable feasts. Flawless celebrations.",
     },
     contact: { phone: b.phone, whatsapp: b.whatsapp, email: b.email || undefined },
     location: {
@@ -113,7 +146,8 @@ export function fromBusiness(b: BusinessInput): EventConfig {
       street: b.street || b.area || b.city,
       postalCode: b.postalCode || "",
       country: "IN",
-      serviceAreas: uniq([b.city, b.area, district]),
+      serviceAreas: b.serviceAreas ?? uniq([b.city, b.area, district]),
+      serviceNote: b.serviceNote,
       geo: b.geo,
       mapsLink: b.mapsLink,
       mapEmbed,
@@ -124,17 +158,33 @@ export function fromBusiness(b: BusinessInput): EventConfig {
     },
     web: { url: b.url, instagram: b.instagram || undefined, facebook: b.facebook || undefined },
     reputation: { rating: b.rating ?? 0, reviews: b.reviewCount ?? 0 },
+    theme: b.theme,
     media: {
       base: `/events/${b.slug}`,
-      heroPoster: typeof b.media?.heroSlides?.[0] === "object" ? b.media.heroSlides[0].src : STOCK.heroSlides[0].src,
+      heroPoster: (b.media?.heroSlides ?? STOCK.heroSlides)[0].src,
       heroSlides: b.media?.heroSlides ?? STOCK.heroSlides,
+      logoMark: b.media?.logoMark,
       ogImage: b.media?.ogImage ?? STOCK.ogImage,
       brandDir: b.media?.brandDir ?? STOCK.brandDir,
-      about: b.media?.about ?? [],
-      gallery: b.gallery.map((src, i) => ({ src, alt: `${b.name} — event photo ${i + 1}` })),
+      about: b.media?.about ?? STOCK.about,
+      gallery: b.gallery.map((g, i) => {
+        const alt = `${b.name} — event photo ${i + 1}`;
+        return typeof g === "string" ? { src: g, alt } : { ...g, alt: g.alt ?? alt };
+      }),
+      reel: b.media?.reel,
     },
     reviews: (b.reviews ?? []).map((r) => ({ ...r, source: "Google review" })),
-    seo: b.seo ?? { keywords: uniq([b.name, b.shortName, `${b.shortName || b.name} ${b.city}`]) },
-    overrides: { menu: [], menuPresets: [] },
+    seo: {
+      ...b.seo,
+      keywords: uniq([...(b.seo?.keywords ?? []), b.name, b.shortName, `${b.shortName || b.name} ${b.city}`]),
+    },
+    overrides: {
+      aboutBody: b.aboutBody,
+      menu: b.menu ?? neutralMenu,
+      menuPresets: b.menu ? (b.menuPresets ?? []) : neutralPresets,
+      services: b.serviceImages
+        ? templateServices.map((s) => ({ ...s, bullets: [...s.bullets], image: b.serviceImages?.[s.id] ?? s.image }))
+        : undefined,
+    },
   };
 }

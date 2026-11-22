@@ -1,29 +1,12 @@
-# A TO Z Events rebuild
+# A TO Z Events — AllInOne template
 
-## Source and client content
-- Repository: ablejose/a-to-z-event-s-kozhikode
-- Brief: C:\event-sites\context.md
-- Client media: WhatsApp Unknown 2026-11-21 at 5.54.16 PM.zip
-- Business contact and map details retained from events/active.json.
-- Tagline transcribed from the client poster: We Plan. We Decorate. We Celebrate!
-- Text wordmark used; no replacement business logo invented.
+Template: ablejose/all-in-one-event-management-mattannur, commit 19c544942ff2887b890167160fd16c797a37ebf6.
 
-## Media selection
-- Floral arch, rose reception, birthday and traditional ceremony photographs selected from the ZIP.
-- Hero stage clip rotated upright and trimmed to 6 seconds (source 2.00.30 PM, seconds 4–10).
-- Garden and Nasik Dhol clips trimmed to 6 seconds (sources 2.00.29 PM at 2–8s and 2.00.27 PM at 5–11s).
-- Videos are muted, looping H.264, CRF 27, with faststart and WebP posters.
-- Photos resized without upscaling. About uses exactly two images: the stage and actual drumming team.
-- What we do retains the template's default service imagery.
-- No fabricated reviews, rating, menu or live-counter section. Seasonal promotional posters were not presented as current offers.
+The template source was copied directly: original full-screen slideshow hero, header, service cards, masonry gallery, process, About crossfade, footer/map, typography and styling. A TO Z client details and media live in events/active.json and public/events/a-to-z-event-s-kozhikode.
 
-## Build and checks
-- Next.js 14 static export, 64-bit Node, npm ci then npm run build.
-- Browser checked at desktop and 390px mobile viewport: no horizontal overflow or broken images; no console errors.
-- Gallery filters, native image dialog, mobile navigation, required enquiry field, telephone/Maps/WhatsApp links checked.
-- Enquiry opens a WhatsApp draft. It does not send or store visitor details on a server.
+The client tagline is transcribed from their poster: We Plan. We Decorate. We Celebrate!
 
-## Release
-- Rebuild branch: codex/a-to-z-rebuild. No PR requested.
-- Deploy only to able8, project a-to-z-event-s-kozhikode.
-- Credentials stay outside the source tree and are not saved to disk.
+The gallery uses actual ZIP photographs and a six-second muted H.264 Nasik Dhol clip. Service cards keep the original template imagery. About has exactly two client images. No logo was substituted. Ratings/reviews are empty; AllInOne reviews and menus were not copied. Without a supplied current menu, quote buttons lead to Contact.
+
+Build: npm run build, 64-bit Node, Next.js static export.
+Release: codex/a-to-z-rebuild; no PR. Vercel only in able8, project a-to-z-event-s-kozhikode. No credentials are saved in the repository.

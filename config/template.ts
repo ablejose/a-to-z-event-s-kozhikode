@@ -51,7 +51,7 @@ export const templateServices: TemplateService[] = [
     id: "bulk-catering",
     title: "Function & Bulk Catering",
     blurb: "Large-volume cooking for functions and gatherings, with delivery available across the area.",
-    bullets: ["High-volume preparation", "Functions & house events"],
+    bullets: ["High-volume preparation", "Functions & house events", "Delivery available"],
     image: "/template/service-3.webp",
   },
 ];
@@ -264,6 +264,7 @@ export const templateCopy = {
     photoQuote: "Every plate, petal and place setting — styled by hand.",
     showAll: "Show all {count} photos",
     showLess: "Show fewer",
+    reelLabel: "On the night",
   },
 
   process: {
@@ -277,8 +278,8 @@ export const templateCopy = {
     headingLead: "Feasts and functions, handled with",
     headingAccent: "care.",
     body:
-      "{fullName} is based in {area}, {city}. From weddings and receptions to house functions and inaugurations, we handle the whole day — fresh food and buffets, live counters, floral and stage décor, and on-ground coordination. Cooked fresh, served hot, and managed so you can enjoy the occasion.",
-    points: ["{hours}", "Delivery available", "Serving {city} & {district}"],
+      "{fullName} is based in {place}. From weddings and receptions to house functions and inaugurations, we handle the whole day — fresh food and buffets, live counters, floral and stage décor, and on-ground coordination. Cooked fresh, served hot, and managed so you can enjoy the occasion.",
+    points: ["{hours}", "Delivery available", "{serving}"],
     reviewsLink: "Read our {reviews} reviews on Google",
   },
 
@@ -287,6 +288,7 @@ export const templateCopy = {
     heading: "What our customers say",
     ratingLink: "Rated {rating} from {reviews} reviews on Google",
     sourceLabel: "Google review",
+    swipeHint: "Swipe for more reviews →",
   },
 
   menu: {
@@ -294,6 +296,9 @@ export const templateCopy = {
     heading: "Design your feast, course by course.",
     body: "Choose from our Kerala wedding favourites, tell us how many guests and what you have in mind — and get a quote made for your day.",
     steps: ["Pick your dishes", "Set your guests", "Get your quote"],
+    skipHint: "Not sure yet?",
+    skipCta: "Just WhatsApp us",
+    moreDetails: "Add date & special requests",
     courseLabel: "Course",
     of: "of",
     addAll: "Add all",
@@ -386,8 +391,8 @@ export const templateCopy = {
   },
 
   theme: {
-    themeColor: "#1A1A24",
-    backgroundColor: "#F8F7F3",
+    themeColor: "#241C15",
+    backgroundColor: "#FDFAF3",
   },
 } as const;
 

@@ -1,8 +1,54 @@
 import Hero from "@/sections/Hero";
-import SelectedWork from "@/sections/SelectedWork";
-import { ServicesOverview, Moments, AboutStory, PlanningProcess } from "@/sections/Celebrations";
-import EventEnquiry from "@/sections/EventEnquiry";
-import { client, links } from "@/config/experience";
+import TrustBar from "@/sections/TrustBar";
+import QuickServices from "@/sections/QuickServices";
+import Services from "@/sections/Services";
+import Gallery from "@/sections/Gallery";
+import Process from "@/sections/Process";
+import About from "@/sections/About";
+import Testimonials from "@/sections/Testimonials";
+import Menu from "@/sections/Menu";
+import Footer from "@/sections/Footer";
+import { event } from "@/event.config";
+import { variant } from "@/config/site";
+
+/**
+ * Page order follows the AIDA conversion journey — hero, proof, offer, reviews,
+ * then the menu quote builder as the close and the visit/map footer — but the middle block
+ * (Services / Gallery / Process / About) reorders per `event.variant`
+ * (config/event-schema.ts) so the lead offer matches the business:
+ *
+ *   catering (default) -> services, food gallery first, then process + about.
+ *   events             -> services (decor/stages), gallery, then process + about.
+ *   wedding            -> planning process + venues (about) first, then services + gallery.
+ */
+const MIDDLE_ORDER: Record<string, readonly ["services" | "gallery" | "process" | "about", ...("services" | "gallery" | "process" | "about")[]]> = {
+  catering: ["services", "gallery", "process", "about"],
+  events: ["services", "gallery", "process", "about"],
+  wedding: ["process", "about", "services", "gallery"],
+};
+
+const SECTION_BY_KEY = {
+  services: Services,
+  gallery: Gallery,
+  process: Process,
+  about: About,
+} as const;
+
 export default function HomePage() {
-  return <><main id="main-content"><Hero /><SelectedWork /><ServicesOverview /><Moments /><AboutStory /><PlanningProcess /><EventEnquiry /></main><footer className="site-footer shell"><a className="wordmark" href="#home"><span>{client.shortName}<i> events</i></span><small>{client.city} · {client.region}</small></a><nav aria-label="Footer">{links.map(link => <a key={link.href} href={link.href}>{link.label}</a>)}<a href={client.instagram} target="_blank" rel="noopener noreferrer">Instagram</a></nav><p>© {new Date().getFullYear()} {client.name}. All rights reserved.</p></footer></>;
+  const order = MIDDLE_ORDER[variant] ?? MIDDLE_ORDER.catering;
+
+  return (
+    <main>
+      <Hero />
+      <TrustBar />
+      <QuickServices />
+      {order.map((key) => {
+        const Section = SECTION_BY_KEY[key];
+        return <Section key={key} />;
+      })}
+      <Testimonials />
+      {!!event.overrides?.menu?.length && <Menu />}
+      <Footer />
+    </main>
+  );
 }

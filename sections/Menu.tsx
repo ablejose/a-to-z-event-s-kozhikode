@@ -5,9 +5,14 @@ import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowLeft,
   ArrowRight,
+  Beef,
   Check,
   Cookie,
+  CookingPot,
+  Croissant,
+  CupSoda,
   Drumstick,
+  EggFried,
   Flame,
   GlassWater,
   IceCreamBowl,
@@ -15,6 +20,7 @@ import {
   Minus,
   Plus,
   Salad,
+  Soup,
   Sparkles,
   Trash2,
   UtensilsCrossed,
@@ -26,7 +32,7 @@ import Reveal from "@/components/Reveal";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
 import { copy, waLink } from "@/config/site";
 import { menu, menuPresets } from "@/config/menu";
-import { t } from "@/lib/copy";
+import { asset, t } from "@/lib/copy";
 import { cn } from "@/lib/utils";
 
 /**
@@ -50,6 +56,15 @@ const COURSE_ICONS: Record<string, LucideIcon> = {
   "veg-mains": Salad,
   desserts: IceCreamBowl,
   live: Flame,
+  soups: Soup,
+  "kerala-feast": CookingPot,
+  grills: Flame,
+  arabian: Beef,
+  "malabar-mains": Wheat,
+  "malabar-snacks": Croissant,
+  dosa: EggFried,
+  thattukada: CupSoda,
+  salads: Salad,
 };
 const iconFor = (id: string) => COURSE_ICONS[id] ?? UtensilsCrossed;
 
@@ -82,6 +97,7 @@ export default function Menu() {
   const [date, setDate] = useState("");
   const [name, setName] = useState("");
   const [notes, setNotes] = useState("");
+  const [moreOpen, setMoreOpen] = useState(false);
   const [preset, setPreset] = useState<string | null>(null);
   const [toast, setToast] = useState<{ id: number; text: string } | null>(null);
 
@@ -91,6 +107,7 @@ export default function Menu() {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const [inSection, setInSection] = useState(false);
   const [panelVisible, setPanelVisible] = useState(false);
+  const [panelUp, setPanelUp] = useState(false);
 
   const pickedSet = useMemo(() => new Set(picked), [picked]);
   const active = menu[catIdx] ?? menu[0];
@@ -167,7 +184,14 @@ export default function Menu() {
     );
     io.observe(s);
     io.observe(p);
-    return () => io.disconnect();
+    // Quote panel in the top half of the screen: the sticky course rail steps aside on
+    // phones so it doesn't sit over the panel and its send button.
+    const up = new IntersectionObserver(([e]) => setPanelUp(e.isIntersecting), { rootMargin: "0px 0px -50% 0px" });
+    up.observe(p);
+    return () => {
+      io.disconnect();
+      up.disconnect();
+    };
   }, []);
 
   const pct = ((guests - GUESTS.min) / (GUESTS.max - GUESTS.min)) * 100;
@@ -221,13 +245,23 @@ export default function Menu() {
               </li>
             ))}
           </ol>
+          <p className="mt-4 font-sans text-xs text-muted">
+            {c.skipHint}{" "}
+            <a href={waLink()} target="_blank" rel="noopener noreferrer" className="font-semibold text-saffron-2 underline decoration-saffron/40 underline-offset-4 hover:decoration-saffron">
+              {c.skipCta}
+            </a>
+          </p>
         </Reveal>
 
         {/* Presets */}
         {menuPresets.length > 0 && (
           <Reveal className="mt-10" delay={0.05}>
             <p className="text-center font-sans text-[0.7rem] font-medium uppercase tracking-[0.24em] text-muted">{c.presetsLabel}</p>
-            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {/* Phones: one swipeable row instead of three stacked cards. */}
+            <div
+              data-lenis-prevent
+              className="-mx-6 mt-4 flex snap-x gap-3 overflow-x-auto px-6 pb-1 [scrollbar-width:none] sm:mx-0 sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0 [&::-webkit-scrollbar]:hidden"
+            >
               {menuPresets.map((p) => {
                 const on = preset === p.title;
                 return (
@@ -237,8 +271,8 @@ export default function Menu() {
                     onClick={() => applyPreset(p.title, p.items)}
                     aria-pressed={on}
                     className={cn(
-                      "group flex items-center justify-between gap-4 rounded-brand border px-5 py-4 text-left transition-all duration-300",
-                      on ? "border-espresso bg-espresso text-ivory shadow-[0_18px_40px_-24px_rgba(36,28,21,0.8)]" : "border-sand bg-white hover:-translate-y-0.5 hover:border-saffron/60"
+                      "group flex w-[15.5rem] shrink-0 snap-start items-center justify-between gap-4 rounded-brand border px-4 py-3 text-left transition-all duration-300 sm:w-auto sm:px-5 sm:py-4",
+                      on ? "border-espresso bg-espresso text-ivory shadow-[0_18px_40px_-24px_rgba(36,28,21,0.8)]" : "border-sand bg-white"
                     )}
                   >
                     <span>
@@ -247,7 +281,7 @@ export default function Menu() {
                         {p.note} · {p.items.length} dishes
                       </span>
                     </span>
-                    {on ? <Check size={18} className="text-saffron" /> : <Sparkles size={18} className="text-saffron-2/60 transition-colors group-hover:text-saffron-2" />}
+                    {on ? <Check size={18} className="text-saffron" /> : <Sparkles size={18} className="text-saffron-2/60" />}
                   </button>
                 );
               })}
@@ -256,13 +290,20 @@ export default function Menu() {
         )}
 
         {/* COURSE RAIL — sticky on phones so switching course is always one tap away */}
-        <div className="sticky top-[74px] z-20 -mx-6 mt-10 bg-cream/90 px-6 py-3 backdrop-blur-md lg:static lg:mx-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-0">
+        <div
+          className={cn(
+            "sticky top-[74px] z-20 -mx-6 mt-8 bg-cream/90 px-6 py-2.5 backdrop-blur-md lg:mt-10 transition-[opacity,transform] duration-300 lg:static lg:mx-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-0",
+            panelUp && "max-lg:pointer-events-none max-lg:-translate-y-3 max-lg:opacity-0"
+          )}
+        >
           <div
             ref={railRef}
             role="tablist"
             aria-label="Menu courses"
             data-lenis-prevent
-            className="flex snap-x gap-2 overflow-x-auto [scrollbar-width:none] lg:grid lg:grid-cols-8 lg:gap-3 lg:overflow-visible lg:pt-1 [&::-webkit-scrollbar]:hidden"
+            // Desktop grid: one row for up to 8 courses, two balanced rows beyond that (ignored by the phone flex row).
+            style={{ gridTemplateColumns: `repeat(${menu.length > 8 ? Math.ceil(menu.length / 2) : menu.length}, minmax(0, 1fr))` }}
+            className="flex snap-x gap-2 overflow-x-auto [scrollbar-width:none] lg:grid lg:gap-3 lg:overflow-visible lg:pt-1 [&::-webkit-scrollbar]:hidden"
           >
             {menu.map((m, i) => {
               const on = i === catIdx;
@@ -278,26 +319,31 @@ export default function Menu() {
                   aria-controls="menu-panel"
                   onClick={() => goTo(i)}
                   className={cn(
-                    "group relative flex w-[6.6rem] shrink-0 snap-start flex-col items-center gap-2 rounded-2xl border px-2 pb-3 pt-3.5 text-center transition-all duration-300 lg:w-auto",
+                    // Phones: a slim pill (icon, name, count) so the sticky rail stays short. Desktop: the full tile.
+                    "group relative flex shrink-0 snap-start items-center gap-2 rounded-full border py-1.5 pl-1.5 pr-3.5 text-left transition-all duration-300",
+                    "lg:w-auto lg:flex-col lg:gap-2 lg:rounded-2xl lg:px-2 lg:pb-3 lg:pt-3.5 lg:text-center",
                     on
                       ? "border-espresso bg-espresso text-ivory shadow-[0_18px_36px_-20px_rgba(36,28,21,0.9)] lg:-translate-y-1"
-                      : "border-sand bg-white text-espresso hover:-translate-y-0.5 hover:border-saffron/60"
+                      : "border-sand bg-white text-espresso"
                   )}
                 >
                   <span
                     className={cn(
-                      "grid h-11 w-11 place-items-center rounded-full transition-colors",
-                      on ? "bg-saffron text-espresso" : n > 0 ? "bg-[var(--saffron-soft)] text-saffron-2" : "bg-cream text-saffron-2 group-hover:bg-[var(--saffron-soft)]"
+                      "grid h-8 w-8 place-items-center rounded-full transition-colors lg:h-11 lg:w-11",
+                      on ? "bg-saffron text-espresso" : n > 0 ? "bg-[var(--saffron-soft)] text-saffron-2" : "bg-cream text-saffron-2"
                     )}
                   >
-                    <Icon size={20} strokeWidth={1.7} />
+                    <Icon size={20} strokeWidth={1.7} className="h-4 w-4 lg:h-5 lg:w-5" />
                   </span>
-                  <span className="font-sans text-[0.72rem] font-semibold leading-tight">{m.title}</span>
-                  <span className={cn("font-sans text-[0.62rem]", on ? "text-ivory/60" : "text-muted")}>
+                  <span className="whitespace-nowrap font-sans text-[0.78rem] font-semibold leading-tight lg:whitespace-normal lg:text-[0.72rem]">{m.title}</span>
+                  {n > 0 && (
+                    <span className="grid h-5 min-w-5 place-items-center rounded-full bg-saffron px-1.5 font-sans text-[0.62rem] font-bold text-espresso lg:hidden">{n}</span>
+                  )}
+                  <span className={cn("hidden font-sans text-[0.62rem] lg:block", on ? "text-ivory/60" : "text-muted")}>
                     {n > 0 ? `${n}/${m.items.length} ${c.picked}` : `${m.items.length} dishes`}
                   </span>
                   {n > 0 && (
-                    <span className="absolute right-2 top-2 grid h-5 w-5 place-items-center rounded-full bg-saffron text-espresso">
+                    <span className="absolute right-2 top-2 hidden h-5 w-5 place-items-center rounded-full bg-saffron text-espresso lg:grid">
                       <Check size={11} strokeWidth={3} />
                     </span>
                   )}
@@ -323,24 +369,35 @@ export default function Menu() {
                     transition={{ duration: 0.35, ease: EASE }}
                   >
                     {/* Course header */}
-                    <div className="flex flex-wrap items-start justify-between gap-4">
-                      <div className="flex items-start gap-4">
-                        <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-espresso text-saffron">
-                          <ActiveIcon size={26} strokeWidth={1.6} />
-                        </span>
-                        <div>
-                          <p className="font-sans text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-saffron-2">
+                    {/* "Add all" drops under the title when the title needs the room (long names, photo beside). */}
+                    <div className="flex flex-wrap items-start justify-between gap-3 sm:gap-4">
+                      <div className="flex min-w-0 flex-1 basis-[10rem] items-start gap-3 sm:gap-4">
+                        {active.image ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={asset(active.image)}
+                            alt=""
+                            aria-hidden
+                            className="h-14 w-14 shrink-0 rounded-2xl object-cover shadow-[0_10px_24px_-12px_rgba(36,28,21,0.6)] sm:h-16 sm:w-16"
+                          />
+                        ) : (
+                          <span className="hidden h-14 w-14 shrink-0 place-items-center rounded-2xl bg-espresso text-saffron sm:grid">
+                            <ActiveIcon size={26} strokeWidth={1.6} />
+                          </span>
+                        )}
+                        <div className="min-w-0">
+                          <p className="font-sans text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-saffron-2 sm:text-[0.68rem]">
                             {c.courseLabel} {String(catIdx + 1).padStart(2, "0")} {c.of} {String(menu.length).padStart(2, "0")}
                           </p>
-                          <h3 className="mt-1 font-display text-[2rem] italic leading-none text-espresso md:text-[2.5rem]">{active.title}</h3>
-                          {active.ml && <p className="mt-2 font-sans text-sm text-saffron-2">{active.ml}</p>}
+                          <h3 className="mt-1 font-display text-[1.6rem] italic leading-none text-espresso sm:text-[2rem] md:text-[2.5rem]">{active.title}</h3>
+                          {active.ml && <p className="mt-1.5 font-sans text-[0.8rem] text-saffron-2 sm:mt-2 sm:text-sm">{active.ml}</p>}
                         </div>
                       </div>
                       <button
                         type="button"
                         onClick={toggleAll}
                         className={cn(
-                          "inline-flex items-center gap-1.5 rounded-full border px-4 py-2 font-sans text-xs font-semibold transition-colors",
+                          "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 font-sans text-xs font-semibold transition-colors sm:px-4",
                           allIn ? "border-espresso/20 text-muted hover:border-espresso/40" : "border-saffron bg-[var(--saffron-soft)] text-saffron-2 hover:bg-saffron hover:text-espresso"
                         )}
                       >
@@ -366,7 +423,7 @@ export default function Menu() {
                               aria-label={`${on ? c.remove : c.add} ${item.name}`}
                               className={cn(
                                 "group -mx-2 flex w-[calc(100%+1rem)] items-start gap-3 rounded-xl px-2 py-4 text-left transition-colors",
-                                on ? "bg-[rgba(196,137,46,0.08)]" : "hover:bg-cream"
+                                on && "bg-[rgba(196,137,46,0.08)]"
                               )}
                             >
                               <VegMark veg={item.veg} />
@@ -383,7 +440,7 @@ export default function Menu() {
                                   "mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-full border transition-colors duration-300",
                                   on
                                     ? "border-saffron bg-saffron text-espresso shadow-[0_8px_20px_-8px_rgba(196,137,46,0.8)]"
-                                    : "border-sand bg-white text-espresso group-hover:border-saffron group-hover:bg-[var(--saffron-soft)]"
+                                    : "border-sand bg-white text-espresso"
                                 )}
                               >
                                 {on ? <Check size={16} strokeWidth={2.4} /> : <Plus size={16} strokeWidth={2} />}
@@ -412,7 +469,7 @@ export default function Menu() {
                     <button
                       type="button"
                       onClick={scrollToPanel}
-                      className="inline-flex items-center gap-2 rounded-full bg-saffron px-5 py-3 font-sans text-sm font-semibold text-espresso transition-all hover:-translate-y-0.5 hover:brightness-110 lg:hidden"
+                      className="inline-flex items-center gap-2 rounded-full bg-saffron px-5 py-3 font-sans text-sm font-semibold text-espresso transition-[filter] hover:brightness-110 lg:hidden"
                     >
                       {c.done} <ArrowRight size={16} />
                     </button>
@@ -420,13 +477,13 @@ export default function Menu() {
                     <button
                       type="button"
                       onClick={() => goTo(catIdx + 1)}
-                      className="group inline-flex items-center gap-3 rounded-full bg-espresso py-2.5 pl-5 pr-2.5 font-sans text-sm font-medium text-ivory transition-all hover:-translate-y-0.5"
+                      className="group inline-flex items-center gap-3 rounded-full bg-espresso py-2.5 pl-5 pr-2.5 font-sans text-sm font-medium text-ivory"
                     >
                       <span className="text-left leading-tight">
                         <span className="block text-[0.62rem] uppercase tracking-[0.18em] text-ivory/55">{c.next}</span>
                         {menu[catIdx + 1].title}
                       </span>
-                      <span className="grid h-8 w-8 place-items-center rounded-full bg-saffron text-espresso transition-transform group-hover:translate-x-0.5">
+                      <span className="grid h-8 w-8 place-items-center rounded-full bg-saffron text-espresso">
                         <ArrowRight size={15} />
                       </span>
                     </button>
@@ -554,7 +611,7 @@ export default function Menu() {
                       type="button"
                       aria-label="Fewer guests"
                       onClick={() => nudge(-GUESTS.step)}
-                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-ivory/20 text-ivory/80 hover:border-saffron hover:text-saffron"
+                      className="grid h-10 w-10 shrink-0 lg:h-8 lg:w-8 place-items-center rounded-full border border-ivory/20 text-ivory/80 hover:border-saffron hover:text-saffron"
                     >
                       <Minus size={14} />
                     </button>
@@ -574,13 +631,13 @@ export default function Menu() {
                       type="button"
                       aria-label="More guests"
                       onClick={() => nudge(GUESTS.step)}
-                      className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-ivory/20 text-ivory/80 hover:border-saffron hover:text-saffron"
+                      className="grid h-10 w-10 shrink-0 lg:h-8 lg:w-8 place-items-center rounded-full border border-ivory/20 text-ivory/80 hover:border-saffron hover:text-saffron"
                     >
                       <Plus size={14} />
                     </button>
                   </div>
                   {/* Tick labels sit at their real position on the track (thumb is 22px wide). */}
-                  <div className="relative mx-11 mt-2 h-4 font-sans text-[0.65rem] text-ivory/40">
+                  <div className="relative mx-[3.25rem] mt-2 h-4 lg:mx-11 font-sans text-[0.65rem] text-ivory/40">
                     {GUEST_TICKS.map((v) => {
                       const at = (v - GUESTS.min) / (GUESTS.max - GUESTS.min);
                       return (
@@ -616,6 +673,17 @@ export default function Menu() {
                     ))}
                   </div>
 
+                  {/* Phones: date + notes stay folded behind one tap, so sending feels one step away. */}
+                  {!moreOpen && (
+                    <button
+                      type="button"
+                      onClick={() => setMoreOpen(true)}
+                      className="mt-6 inline-flex items-center gap-1.5 font-sans text-xs font-semibold text-saffron transition-colors hover:text-ivory lg:hidden"
+                    >
+                      <Plus size={13} /> {c.moreDetails} <span className="font-normal text-ivory/35">({c.dateOptional})</span>
+                    </button>
+                  )}
+                  <div className={cn(!moreOpen && "max-lg:hidden")}>
                   {/* Date */}
                   <label htmlFor="menu-date" className="mt-6 block font-sans text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-ivory/55">
                     {c.dateLabel} <span className="normal-case tracking-normal text-ivory/35">({c.dateOptional})</span>
@@ -640,6 +708,7 @@ export default function Menu() {
                     placeholder={c.notesPlaceholder}
                     className="mt-2 w-full resize-none rounded-xl border border-ivory/15 bg-ivory/5 px-4 py-2.5 font-sans text-sm text-ivory outline-none placeholder:text-ivory/30 focus:border-saffron"
                   />
+                  </div>
                 </div>
               </div>
 
@@ -648,7 +717,7 @@ export default function Menu() {
                 <button
                   type="button"
                   onClick={send}
-                  className="quote-cta group relative flex w-full items-center justify-between gap-3 overflow-hidden rounded-full bg-saffron py-2.5 pl-6 pr-2.5 text-left text-espresso transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-14px_rgba(196,137,46,0.75)]"
+                  className="quote-cta group relative flex w-full items-center justify-between gap-3 overflow-hidden rounded-full bg-saffron py-2.5 pl-6 pr-2.5 text-left text-espresso transition-shadow duration-300 hover:shadow-[0_18px_40px_-14px_rgba(196,137,46,0.75)]"
                 >
                   <span className="relative z-10 min-w-0 leading-tight">
                     <span className="block font-sans text-[0.95rem] font-bold">{c.submit}</span>
@@ -656,7 +725,7 @@ export default function Menu() {
                       {picked.length > 0 ? `${picked.length} ${picked.length === 1 ? "dish" : "dishes"}` : "Menu to suggest"} · {guests} {c.guestsUnit} · {occasion}
                     </span>
                   </span>
-                  <span className="relative z-10 grid h-11 w-11 shrink-0 place-items-center rounded-full bg-espresso text-[#25D366] transition-transform duration-300 group-hover:scale-105">
+                  <span className="relative z-10 grid h-11 w-11 shrink-0 place-items-center rounded-full bg-espresso text-[#25D366] transition-transform duration-300">
                     <WhatsAppIcon size={20} />
                   </span>
                 </button>

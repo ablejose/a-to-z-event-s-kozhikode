@@ -17,6 +17,7 @@ const vc = variantCopy[variant] ?? {};
 /** Shared template copy, with this event's variant overrides applied one level deep. */
 export const copy = {
   ...templateCopy,
+  cta: { ...templateCopy.cta, primaryHref: event.overrides?.menu?.length ? "#menu" : "#contact", secondary: event.overrides?.menu?.length ? templateCopy.cta.secondary : "Plan your event" },
   hero: { ...templateCopy.hero, ...vc.hero },
   services: { ...templateCopy.services, ...vc.services },
   gallery: { ...templateCopy.gallery, ...vc.gallery },
@@ -44,6 +45,7 @@ export const site = {
   whatsapp: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || event.contact.whatsapp,
   address: event.location.address,
   serviceAreas: event.location.serviceAreas,
+  serviceNote: event.location.serviceNote,
   rating: event.reputation.rating,
   reviews: event.reputation.reviews,
   hours: event.location.hours,
@@ -85,7 +87,7 @@ export const telLink = `tel:${site.phone.replace(/[^\d+]/g, "")}`;
 
 /** Nav, minus links to sections this event doesn't render (no photos / no reviews). */
 export const navLinks = templateCopy.nav.filter(
-  (l) => !(l.href === "#gallery" && event.media.gallery.length === 0) && !(l.href === "#testimonials" && event.reviews.length === 0)
+  (l) => !(l.href === "#menu" && !event.overrides?.menu?.length) && !(l.href === "#gallery" && event.media.gallery.length === 0) && !(l.href === "#testimonials" && event.reviews.length === 0)
 );
 
 /** Brand icon + share image paths for this event. */

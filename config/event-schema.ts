@@ -48,6 +48,8 @@ export interface MenuCategory {
   title: string;
   /** Malayalam category title. */
   ml?: string;
+  /** Small square photo shown beside the course title. */
+  image?: MediaPath;
   items: MenuItem[];
 }
 
@@ -124,6 +126,8 @@ export interface EventConfig {
     country: string;
     /** Towns served, used in footer + schema.org areaServed. */
     serviceAreas: string[];
+    /** One line shown instead of the service-area list, e.g. "Service across Kerala". */
+    serviceNote?: string;
     /** Map pin. Optional for generated sites where Places has no match. */
     geo?: { lat: number; lng: number };
     /** Share link to the Google Business Profile / Maps pin. */
@@ -193,6 +197,8 @@ export interface EventConfig {
     about: GalleryEntry[];
     /** "Our work" photos — their real events only. */
     gallery: GalleryEntry[];
+    /** A short, muted, looping portrait clip shown first in "Our work". */
+    reel?: { src: MediaPath; poster: MediaPath; alt: string };
   };
 
   /** Real reviews only. Leave empty to hide the Reviews section. */
@@ -201,8 +207,16 @@ export interface EventConfig {
   seo?: {
     /** Extra keywords on top of the generated ones. */
     keywords?: string[];
-    /** Overrides the generated meta description. */
+    /** Overrides the generated meta description. {tokens} are filled. */
     description?: string;
+    /** Overrides the generated page title. {tokens} are filled. */
+    title?: string;
+    /** Overrides the generated Open Graph / Twitter description. {tokens} are filled. */
+    ogDescription?: string;
+    /** Google Search Console HTML-tag code (the `content` value only). NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION wins when set. */
+    googleSiteVerification?: string;
+    /** Bing Webmaster Tools `msvalidate.01` code. NEXT_PUBLIC_BING_SITE_VERIFICATION wins when set. */
+    bingSiteVerification?: string;
   };
 
   /**

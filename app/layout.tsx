@@ -1,18 +1,20 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Fraunces, Manrope } from "next/font/google";
 import "./globals.css";
 import { brandAssets, copy, icon, site } from "@/config/site";
 import { event } from "@/event.config";
 import { jsonLd, seo } from "@/config/seo";
 import SmoothScroll from "@/components/SmoothScroll";
 import Header from "@/components/Header";
+import WhatsAppFab from "@/components/WhatsAppFab";
+import Loader from "@/components/Loader";
 
 /**
  * Every value below is derived from the active event config (event.config.ts).
  * Do not hardcode a business name, town or phone number in this file.
  */
-const fraunces = Cormorant_Garamond({ weight: ["400", "500", "600"], style: ["normal", "italic"], subsets: ["latin"], display: "swap", variable: "--font-fraunces" });
-const manrope = Inter({ subsets: ["latin"], display: "swap", variable: "--font-manrope" });
+const fraunces = Fraunces({ subsets: ["latin"], display: "swap", variable: "--font-fraunces" });
+const manrope = Manrope({ subsets: ["latin"], display: "swap", variable: "--font-manrope" });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -27,7 +29,8 @@ export const metadata: Metadata = {
   creator: site.fullName,
   publisher: site.fullName,
   category: seo.category,
-  alternates: { canonical: "/" },
+  // Single English (India) page: canonical + hreflang en-IN, with x-default for everyone else.
+  alternates: { canonical: "/", languages: { "en-IN": "/", "x-default": "/" } },
   formatDetection: { telephone: true, address: true, email: false },
   openGraph: {
     type: "website",
@@ -36,13 +39,13 @@ export const metadata: Metadata = {
     siteName: site.fullName,
     title: seo.title,
     description: seo.ogDescription,
-    images: [{ url: brandAssets.ogImage, width: 1200, height: 630, alt: seo.title }],
+    images: [{ url: brandAssets.ogImage, width: 1200, height: 630, alt: seo.title, type: "image/jpeg" }],
   },
   twitter: {
     card: "summary_large_image",
     title: seo.title,
     description: seo.ogDescription,
-    images: [brandAssets.ogImage],
+    images: [{ url: brandAssets.ogImage, alt: seo.title }],
   },
   icons: {
     icon: [
@@ -73,9 +76,25 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  verification: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
-    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
-    : undefined,
+  // Search Console / Bing HTML-tag codes: env var or events/active.json `seo` (config/seo.ts).
+  verification:
+    seo.googleVerification || seo.bingVerification
+      ? {
+          google: seo.googleVerification,
+          other: seo.bingVerification ? { "msvalidate.01": seo.bingVerification } : undefined,
+        }
+      : undefined,
+  // Local-search hints: state, town and map position.
+  other: {
+    ...(event.location.region === "Kerala" ? { "geo.region": "IN-KL" } : {}),
+    "geo.placename": event.location.city,
+    ...(event.location.geo
+      ? {
+          "geo.position": `${event.location.geo.lat};${event.location.geo.lng}`,
+          ICBM: `${event.location.geo.lat}, ${event.location.geo.lng}`,
+        }
+      : {}),
+  },
 };
 
 export const viewport: Viewport = {
@@ -96,11 +115,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body style={themeStyle}>
-        <a className="skip-link" href="#main-content">Skip to content</a>
+        <Loader />
         <SmoothScroll>
           <Header />
           {children}
-
+          <WhatsAppFab />
         </SmoothScroll>
       </body>
     </html>
