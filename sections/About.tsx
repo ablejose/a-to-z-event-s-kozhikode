@@ -20,12 +20,7 @@ export default function About() {
   useEffect(() => {
     const video = videoRef.current;
     if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) video.play().catch(() => {});
-      else video.pause();
-    }, { threshold: 0.4 });
-    observer.observe(video);
-    return () => observer.disconnect();
+    video.play().catch(() => {});
   }, []);
 
   const body = t(event.overrides?.aboutBody ?? copy.about.body);
@@ -69,7 +64,7 @@ export default function About() {
 
         <Reveal delay={0.1}>
           {aboutVideo && <figure className="overflow-hidden rounded-brand bg-ink shadow-xl">
-            <video ref={videoRef} src={aboutVideo.src} poster={aboutVideo.poster} aria-label={aboutVideo.alt} muted loop playsInline controls preload="metadata" className="block aspect-video w-full object-cover" />
+            <video ref={videoRef} src={aboutVideo.src} poster={aboutVideo.poster} aria-label={aboutVideo.alt} muted loop playsInline controls={false} disablePictureInPicture preload="auto" className="block aspect-video w-full object-cover" />
           </figure>}
         </Reveal>
       </div>

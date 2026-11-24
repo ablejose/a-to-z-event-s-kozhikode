@@ -9,9 +9,8 @@ import { t } from "@/lib/copy";
 
 /**
  * OUR FOOD — one portrait clip beside a short line of copy. The clip is not
- * fetched at all until the hero video has loaded AND the section is close to
- * the screen; it then plays while at least half of it is visible and pauses
- * when scrolled away. Renders nothing without `media.food`.
+ * fetched until the section is close to the screen, then loops continuously
+ * without native player controls. Renders nothing without `media.food`.
  */
 export default function Food() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -30,13 +29,11 @@ export default function Food() {
     return () => io.disconnect();
   }, []);
 
-  // Once loading is allowed: play while half visible, pause otherwise.
+  // Start once nearby and keep the muted clip looping without visible controls.
   useEffect(() => {
     const v = videoRef.current;
     if (!load || !v || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()), { threshold: 0.5 });
-    io.observe(v);
-    return () => io.disconnect();
+    v.play().catch(() => {});
   }, [load]);
 
   if (!foodVideo) return null;
@@ -82,6 +79,8 @@ export default function Food() {
               muted
               loop
               playsInline
+              controls={false}
+              disablePictureInPicture
               preload={load ? "auto" : "none"}
               className="block aspect-[9/16] w-full object-cover"
             />
