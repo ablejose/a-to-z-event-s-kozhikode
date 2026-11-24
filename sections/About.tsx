@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Star, Clock, Truck, MapPin } from "lucide-react";
 import Reveal from "@/components/Reveal";
-import { Img } from "@/components/ui/Img";
 import { copy, event, site, withoutDelivery } from "@/config/site";
-import { aboutImages, gallerySettings } from "@/config/gallery";
+import { aboutVideo } from "@/config/gallery";
 import { t, tAll } from "@/lib/copy";
 
 const POINT_ICONS = [Clock, Truck, MapPin];
@@ -17,12 +16,16 @@ export default function About() {
     ...withoutDelivery(tAll(copy.about.points)).map((text, i) => ({ icon: POINT_ICONS[i % POINT_ICONS.length], text })),
   ];
 
-  const [idx, setIdx] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
   useEffect(() => {
-    if (aboutImages.length < 2) return;
-    const ms = gallerySettings.aboutIntervalMs;
-    const timer = setInterval(() => setIdx((i) => (i + 1) % aboutImages.length), ms);
-    return () => clearInterval(timer);
+    const video = videoRef.current;
+    if (!video || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) video.play().catch(() => {});
+      else video.pause();
+    }, { threshold: 0.4 });
+    observer.observe(video);
+    return () => observer.disconnect();
   }, []);
 
   const body = t(event.overrides?.aboutBody ?? copy.about.body);
@@ -65,18 +68,9 @@ export default function About() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <figure className="relative overflow-hidden rounded-brand" style={{ aspectRatio: "4 / 5" }}>
-            {aboutImages.map((im, i) => (
-              <Img
-                key={im.src}
-                src={im.src}
-                alt={im.alt}
-                fallbackSeed={im.src}
-                className="absolute inset-0 h-full w-full object-cover"
-                style={{ opacity: i === idx ? 1 : 0, transition: "opacity 0.8s ease-in-out" }}
-              />
-            ))}
-          </figure>
+          {aboutVideo && <figure className="overflow-hidden rounded-brand bg-ink shadow-xl">
+            <video ref={videoRef} src={aboutVideo.src} poster={aboutVideo.poster} aria-label={aboutVideo.alt} muted loop playsInline controls preload="metadata" className="block aspect-video w-full object-cover" />
+          </figure>}
         </Reveal>
       </div>
     </section>

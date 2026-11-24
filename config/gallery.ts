@@ -41,3 +41,6 @@ export const gallerySettings = templateCopy.gallerySettings;
 
 const food = event.media.food;
 export const foodVideo = food ? { ...food, src: asset(food.src), poster: asset(food.poster) } : null;
+
+const aboutFilm = event.media.aboutVideo;
+export const aboutVideo = aboutFilm ? { ...aboutFilm, src: asset(aboutFilm.src), poster: asset(aboutFilm.poster) } : null;

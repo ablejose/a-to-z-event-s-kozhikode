@@ -60,6 +60,7 @@ export interface BusinessInput {
     about?: EventImage[];
     logoMark?: string;
     food?: { src: string; poster: string; alt: string };
+    aboutVideo?: { src: string; poster: string; alt: string };
     ogImage?: string;
     brandDir?: string;
     reel?: { src: string; poster: string; alt: string };
@@ -174,6 +175,7 @@ export function fromBusiness(b: BusinessInput): EventConfig {
       }),
       reel: b.media?.reel,
       food: b.media?.food,
+      aboutVideo: b.media?.aboutVideo,
     },
     reviews: (b.reviews ?? []).map((r) => ({ ...r, source: "Google review" })),
     seo: {

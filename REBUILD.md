@@ -12,3 +12,5 @@ Build: npm run build, 64-bit Node, Next.js static export.
 Release: codex/a-to-z-rebuild; no PR. Vercel only in able8, project a-to-z-event-s-kozhikode. No credentials are saved in the repository.
 
 Updated logo from the supplied image using built-in image generation: preserve the original red/white/black design and restore crisp edges and lettering. Logo-only loader and larger hero logo. Replaced all displayed hero/gallery/about/service media with local reference assets from All In One, Carmel and Wonders, per user instruction; source credits at /media-credits/. Added Wonders-style side-by-side food film and restored the existing menu quote builder.
+
+Hero logo removed in favour of an angular A TO Z wordmark; service images restored to the template defaults. Stage gallery previews three images with a bottom fade and See more/See less. About uses Wonders’ first-section landscape food reel, replacing both still images. Loading logo has a red orbit with reduced-motion fallback.

@@ -22,7 +22,7 @@ export default function Loader() {
       root.style.overflow = previousOverflow;
       setPhase("reveal");
     };
-    const timeout = window.setTimeout(reveal, reduced ? 150 : 800);
+    const timeout = window.setTimeout(reveal, reduced ? 150 : 1200);
 
     return () => {
       window.clearTimeout(timeout);
@@ -48,8 +48,11 @@ export default function Loader() {
       transition={{ duration: reduce ? 0.1 : 0.45, ease: "easeOut" }}
     >
       {logoMark && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={logoMark} alt="" fetchPriority="high" width={192} height={192} className="h-auto w-40 object-contain md:w-48" />
+        <div className="atoz-loader-orbit">
+          <span className="atoz-loader-ring" aria-hidden="true" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={logoMark} alt="" fetchPriority="high" width={192} height={192} className="relative h-full w-full rounded-full object-contain" />
+        </div>
       )}
     </motion.div>
   );

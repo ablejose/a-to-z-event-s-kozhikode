@@ -4,7 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { WhatsAppIcon } from "@/components/ui/WhatsAppIcon";
-import { copy, heroSlides, logoMark, site, waLink } from "@/config/site";
+import { copy, heroSlides, site, waLink } from "@/config/site";
 import { t } from "@/lib/copy";
 
 /** A new slide every 2s. Each one slides in from the right, so the show always moves forward. */
@@ -126,23 +126,12 @@ export default function Hero() {
       />
 
       <div className="relative z-10 mx-auto flex h-full max-w-shell flex-col items-center justify-center px-6 pt-16 text-center">
-        {logoMark && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={logoMark} alt="" aria-hidden className="mb-4 h-24 w-24 rounded-full object-contain md:h-28 md:w-28" />
-        )}
         <p className="eyebrow eyebrow-center" style={{ color: "rgba(255,255,255,0.85)" }}>
           {t(copy.hero.eyebrow)}
         </p>
-        <h1 className="mt-4 flex flex-col items-center">
-          <span
-            className="display-xl text-ivory"
-            style={{
-              // Long names (generated sites) step down so they stay on one or two lines.
-              fontSize: site.name.length > 18 ? "clamp(2.2rem, 5.5vw, 4.4rem)" : site.name.length > 10 ? "clamp(2.8rem, 7vw, 5.6rem)" : "clamp(3.4rem, 9vw, 7rem)",
-              textShadow: "0 4px 40px rgba(0,0,0,0.35)",
-            }}
-          >
-            {site.name}
+        <h1 aria-label={`${site.name} ${site.descriptor}`} className="mt-4 flex flex-col items-center">
+          <span className="atoz-wordmark" aria-label={site.name}>
+            {site.name.split(" ").map((part, i) => <span key={i} aria-hidden="true">{part}</span>)}
           </span>
           <span
             className="mt-2 font-sans text-[0.78rem] font-semibold uppercase md:text-sm"

@@ -10,7 +10,7 @@ import { copy } from "@/config/site";
 import { t } from "@/lib/copy";
 
 /** Photos shown before "Show all" — enough to fill three masonry columns. */
-const INITIAL = 9;
+const INITIAL = 3;
 
 /**
  * OUR WORK — the client's own photos as a masonry wall. Tap any photo for the
@@ -41,7 +41,7 @@ export default function Gallery() {
           </Reveal>
         </div>
 
-        <div className="relative mt-12">
+        <div id="stage-gallery" className={`relative mt-12 ${!all && more > 0 ? "max-h-[420px] overflow-hidden" : ""}`}>
           <div className="columns-2 gap-3 md:columns-3 md:gap-5 [&>*]:mb-3 md:[&>*]:mb-5">
             {galleryReel && (
               <Reveal className="break-inside-avoid">
@@ -101,6 +101,8 @@ export default function Gallery() {
             <button
               type="button"
               onClick={() => setAll((v) => !v)}
+              aria-expanded={all}
+              aria-controls="stage-gallery"
               className="inline-flex items-center gap-2 rounded-full border border-espresso/20 bg-white px-6 py-3 font-sans text-sm font-medium text-espresso transition-all duration-300 hover:-translate-y-0.5 hover:border-saffron"
             >
               {all ? copy.gallery.showLess : copy.gallery.showAll.replace("{count}", String(galleryImages.length))}

@@ -76,21 +76,17 @@
     ],
     "ogImage": "brand/og-image.jpg",
     "brandDir": "brand",
-    "about": [
-      {
-        "src": "references/carmel-floral-stage.webp",
-        "alt": "Cream sofa on a white floral stage beneath crystal chandeliers"
-      },
-      {
-        "src": "references/food-poster.webp",
-        "alt": "Freshly prepared food at a catering counter"
-      }
-    ],
+    "about": [],
     "logoMark": "brand/logo-enhanced.png",
     "food": {
       "src": "references/food-film.mp4",
       "poster": "references/food-poster.webp",
       "alt": "Fresh snacks, grills, drinks and rice being prepared at catering counters"
+    },
+    "aboutVideo": {
+      "src": "references/about-food.mp4",
+      "poster": "references/about-food.webp",
+      "alt": "Fresh snacks, grills, tea and rice prepared at catering counters"
     }
   },
   "headline": "We Plan. We Decorate. We Celebrate!",
@@ -579,10 +575,5 @@
     "Kozhikode",
     "Arayidathupalam"
   ],
-  "aboutBody": "{fullName} is based in {place}. From weddings and receptions to birthdays and family functions, we bring together stage decoration, catering, Nasik Dhol and event coordination. Tell us about your occasion, and we’ll help you plan the details.",
-  "serviceImages": {
-    "wedding-catering": "references/food-poster.webp",
-    "event-management": "references/carmel-floral-stage.webp",
-    "bulk-catering": "references/carmel-reception.webp"
-  }
+  "aboutBody": "{fullName} is based in {place}. From weddings and receptions to birthdays and family functions, we bring together stage decoration, catering, Nasik Dhol and event coordination. Tell us about your occasion, and we’ll help you plan the details."
 }
