@@ -215,6 +215,7 @@ export const templateCopy = {
   nav: [
     { label: "Services", href: "#services" },
     { label: "Our work", href: "#gallery" },
+    { label: "Food", href: "#food" },
     { label: "Reviews", href: "#testimonials" },
     { label: "Menu", href: "#menu" },
     { label: "Contact", href: "#contact" },
@@ -230,6 +231,8 @@ export const templateCopy = {
     waMessage: "Hi {brand}, I found your website and would like to enquire.",
     waQuoteIntro: "Hi {brand}, I'd like a quote for my event.",
   },
+
+  food: { eyebrow: "Our food", heading: "A feast to remember.", body: "From welcome drinks and freshly prepared snacks to a generous wedding spread, plan a menu that fits your celebration. Choose your favourites and tell us about your guests.", cta: "Build your menu" },
 
   hero: {
     eyebrow: "{city} · {district}",

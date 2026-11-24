@@ -59,6 +59,7 @@ export interface BusinessInput {
     heroSlides?: EventImage[];
     about?: EventImage[];
     logoMark?: string;
+    food?: { src: string; poster: string; alt: string };
     ogImage?: string;
     brandDir?: string;
     reel?: { src: string; poster: string; alt: string };
@@ -172,6 +173,7 @@ export function fromBusiness(b: BusinessInput): EventConfig {
         return typeof g === "string" ? { src: g, alt } : { ...g, alt: g.alt ?? alt };
       }),
       reel: b.media?.reel,
+      food: b.media?.food,
     },
     reviews: (b.reviews ?? []).map((r) => ({ ...r, source: "Google review" })),
     seo: {

@@ -8,7 +8,7 @@ import { copy, heroSlides, logoMark, site, waLink } from "@/config/site";
 import { t } from "@/lib/copy";
 
 /** A new slide every 2s. Each one slides in from the right, so the show always moves forward. */
-const HERO_INTERVAL_MS = 2000;
+const HERO_INTERVAL_MS = 6000;
 const SLIDE_MS = 1100;
 const SLIDE_EASE = "cubic-bezier(0.77, 0, 0.18, 1)";
 
@@ -128,7 +128,7 @@ export default function Hero() {
       <div className="relative z-10 mx-auto flex h-full max-w-shell flex-col items-center justify-center px-6 pt-16 text-center">
         {logoMark && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={logoMark} alt="" aria-hidden className="mb-5 h-14 w-14 object-contain md:h-16 md:w-16" />
+          <img src={logoMark} alt="" aria-hidden className="mb-4 h-24 w-24 rounded-full object-contain md:h-28 md:w-28" />
         )}
         <p className="eyebrow eyebrow-center" style={{ color: "rgba(255,255,255,0.85)" }}>
           {t(copy.hero.eyebrow)}

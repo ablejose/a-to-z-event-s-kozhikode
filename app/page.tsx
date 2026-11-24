@@ -1,3 +1,4 @@
+import Food from "@/sections/Food";
 import Hero from "@/sections/Hero";
 import TrustBar from "@/sections/TrustBar";
 import QuickServices from "@/sections/QuickServices";
@@ -46,6 +47,7 @@ export default function HomePage() {
         const Section = SECTION_BY_KEY[key];
         return <Section key={key} />;
       })}
+      <Food />
       <Testimonials />
       {!!event.overrides?.menu?.length && <Menu />}
       <Footer />

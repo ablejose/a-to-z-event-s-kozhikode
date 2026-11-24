@@ -24,28 +24,24 @@
   "reviews": [],
   "gallery": [
     {
-      "src": "stages/floral-arch.webp",
-      "alt": "Blush loveseat beneath a pastel floral arch against ivory drapes and warm lights"
+      "src": "references/white-arches.webp",
+      "alt": "White arched stage with greenery, chandeliers and a cream sofa"
     },
     {
-      "src": "stages/rose-stage.webp",
-      "alt": "A red rose wall with gold initials above a mauve loveseat and white flowers"
+      "src": "references/floral-canopy.webp",
+      "alt": "Blue loveseat beneath a dense pastel floral canopy and illuminated white panels"
     },
     {
-      "src": "stages/birthday.webp",
-      "alt": "Outdoor birthday backdrop with yellow flowers, a glowing Happy Birthday sign and a white cake table"
+      "src": "references/traditional-mandap.webp",
+      "alt": "Traditional mandap with draped pillars, flowers and brass lamps"
     },
     {
-      "src": "stages/traditional.webp",
-      "alt": "A wooden ceremonial seat against green foliage and marigold garlands in a decorated room"
+      "src": "references/carmel-floral-stage.webp",
+      "alt": "Cream sofa on a white floral stage beneath crystal chandeliers"
     },
     {
-      "src": "stages/floral-detail.webp",
-      "alt": "Red and white flowers with gold initials arranged on a reception backdrop"
-    },
-    {
-      "src": "video/hero.webp",
-      "alt": "Red floral arch and ornate loveseat on a warmly lit evening stage"
+      "src": "references/carmel-reception.webp",
+      "alt": "Reception seating leading to a warm illuminated floral stage"
     }
   ],
   "url": "https://a-to-z-event-s-kozhikode.vercel.app",
@@ -66,34 +62,35 @@
   "media": {
     "heroSlides": [
       {
-        "src": "stages/floral-arch.webp",
-        "alt": "Blush loveseat beneath a pastel floral arch against ivory drapes and warm lights"
+        "src": "references/white-arches.webp",
+        "alt": "White arched stage with greenery, chandeliers and a cream sofa"
       },
       {
-        "src": "stages/rose-stage.webp",
-        "alt": "A red rose wall with gold initials above a mauve loveseat and white flowers"
+        "src": "references/floral-canopy.webp",
+        "alt": "Blue loveseat beneath a dense pastel floral canopy and illuminated white panels"
       },
       {
-        "src": "stages/birthday.webp",
-        "alt": "Outdoor birthday backdrop with yellow flowers, a glowing Happy Birthday sign and a white cake table"
+        "src": "references/traditional-mandap.webp",
+        "alt": "Traditional mandap with draped pillars, flowers and brass lamps"
       }
     ],
     "ogImage": "brand/og-image.jpg",
     "brandDir": "brand",
     "about": [
       {
-        "src": "about/stage.webp",
-        "alt": "A blush loveseat beneath a pastel floral arch and warm hanging lights"
+        "src": "references/carmel-floral-stage.webp",
+        "alt": "Cream sofa on a white floral stage beneath crystal chandeliers"
       },
       {
-        "src": "about/team.webp",
-        "alt": "Drummers in turquoise shirts performing among guests at an indoor celebration"
+        "src": "references/food-poster.webp",
+        "alt": "Freshly prepared food at a catering counter"
       }
     ],
-    "reel": {
-      "src": "video/dhol.mp4",
-      "poster": "video/dhol.webp",
-      "alt": "Nasik Dhol drummers performing among guests at a celebration"
+    "logoMark": "brand/logo-enhanced.png",
+    "food": {
+      "src": "references/food-film.mp4",
+      "poster": "references/food-poster.webp",
+      "alt": "Fresh snacks, grills, drinks and rice being prepared at catering counters"
     }
   },
   "headline": "We Plan. We Decorate. We Celebrate!",
@@ -101,11 +98,491 @@
     "primary": "#C9A35B",
     "accent": "#9E7A35"
   },
-  "menu": [],
-  "menuPresets": [],
+  "menu": [
+    {
+      "id": "welcome",
+      "title": "Welcome Drinks",
+      "ml": "സ്വാഗത പാനീയം",
+      "items": [
+        {
+          "id": "lime-soda",
+          "name": "Fresh Lime Soda",
+          "ml": "നാരങ്ങ സോഡ",
+          "note": "Sweet, salted or mint",
+          "veg": true
+        },
+        {
+          "id": "nannari",
+          "name": "Nannari Sarbath",
+          "ml": "നന്നാരി സർബത്ത്",
+          "note": "Sarsaparilla syrup, lime and ice",
+          "veg": true
+        },
+        {
+          "id": "tender-coconut",
+          "name": "Tender Coconut Water",
+          "ml": "ഇളനീർ",
+          "note": "Chilled, served in glass",
+          "veg": true
+        },
+        {
+          "id": "watermelon",
+          "name": "Watermelon Juice",
+          "ml": "തണ്ണിമത്തൻ ജ്യൂസ്",
+          "note": "Fresh-pressed with mint",
+          "veg": true
+        },
+        {
+          "id": "passion-fruit",
+          "name": "Passion Fruit Juice",
+          "ml": "പാഷൻ ഫ്രൂട്ട് ജ്യൂസ്",
+          "note": "Tangy, bright and cold",
+          "veg": true
+        }
+      ]
+    },
+    {
+      "id": "starters",
+      "title": "Starters",
+      "ml": "സ്റ്റാർട്ടേഴ്സ്",
+      "items": [
+        {
+          "id": "veg-cutlet",
+          "name": "Vegetable Cutlet",
+          "ml": "വെജിറ്റബിൾ കട്ലറ്റ്",
+          "note": "Crumbed, with tomato sauce",
+          "veg": true
+        },
+        {
+          "id": "beef-cutlet",
+          "name": "Beef Cutlet",
+          "ml": "ബീഫ് കട്ലറ്റ്",
+          "note": "The Kottayam wedding classic",
+          "veg": false
+        },
+        {
+          "id": "chicken-lollipop",
+          "name": "Chicken Lollipop",
+          "ml": "ചിക്കൻ ലോലിപോപ്പ്",
+          "note": "Crisp, spiced, finger food",
+          "veg": false
+        },
+        {
+          "id": "fish-fingers",
+          "name": "Fish Fingers",
+          "ml": "ഫിഷ് ഫിംഗർ",
+          "note": "Seer fish, golden fried",
+          "veg": false
+        },
+        {
+          "id": "paneer-tikka",
+          "name": "Paneer Tikka",
+          "ml": "പനീർ ടിക്ക",
+          "note": "Charred in a spiced marinade",
+          "veg": true
+        }
+      ]
+    },
+    {
+      "id": "sadya",
+      "title": "Kerala Sadya",
+      "ml": "സദ്യ",
+      "items": [
+        {
+          "id": "avial",
+          "name": "Avial",
+          "ml": "അവിയൽ",
+          "note": "Mixed vegetables in coconut and curd",
+          "veg": true
+        },
+        {
+          "id": "thoran",
+          "name": "Thoran",
+          "ml": "തോരൻ",
+          "note": "Stir-fried vegetables with grated coconut",
+          "veg": true
+        },
+        {
+          "id": "olan",
+          "name": "Olan",
+          "ml": "ഓലൻ",
+          "note": "Ash gourd and cowpeas in coconut milk",
+          "veg": true
+        },
+        {
+          "id": "kaalan",
+          "name": "Kaalan",
+          "ml": "കാളൻ",
+          "note": "Yam and raw banana in thick curd",
+          "veg": true
+        },
+        {
+          "id": "erissery",
+          "name": "Erissery",
+          "ml": "എരിശ്ശേരി",
+          "note": "Pumpkin and red beans, roasted coconut",
+          "veg": true
+        },
+        {
+          "id": "sambar",
+          "name": "Sambar",
+          "ml": "സാമ്പാർ",
+          "note": "Lentils and vegetables, tamarind base",
+          "veg": true
+        },
+        {
+          "id": "parippu",
+          "name": "Parippu & Ghee",
+          "ml": "പരിപ്പും നെയ്യും",
+          "note": "Moong dal served with ghee",
+          "veg": true
+        },
+        {
+          "id": "pulissery",
+          "name": "Pulissery",
+          "ml": "പുളിശ്ശേരി",
+          "note": "Spiced buttermilk curry",
+          "veg": true
+        },
+        {
+          "id": "inji-puli",
+          "name": "Inji Puli",
+          "ml": "ഇഞ്ചിപ്പുളി",
+          "note": "Sweet-sour ginger and tamarind",
+          "veg": true
+        },
+        {
+          "id": "pachadi-kichadi",
+          "name": "Pachadi & Kichadi",
+          "ml": "പച്ചടി, കിച്ചടി",
+          "note": "Pineapple pachadi, cucumber kichadi",
+          "veg": true
+        },
+        {
+          "id": "pappadam-upperi",
+          "name": "Pappadam & Upperi",
+          "ml": "പപ്പടം, ഉപ്പേരി",
+          "note": "With banana chips and sharkara varatti",
+          "veg": true
+        }
+      ]
+    },
+    {
+      "id": "breads-rice",
+      "title": "Appam, Breads & Rice",
+      "ml": "അപ്പം, ചോറ്",
+      "items": [
+        {
+          "id": "palappam",
+          "name": "Palappam",
+          "ml": "പാലപ്പം",
+          "note": "Lacy-edged, soft centre",
+          "veg": true
+        },
+        {
+          "id": "idiyappam",
+          "name": "Idiyappam",
+          "ml": "ഇടിയപ്പം",
+          "note": "Steamed string hoppers",
+          "veg": true
+        },
+        {
+          "id": "porotta",
+          "name": "Kerala Porotta",
+          "ml": "പൊറോട്ട",
+          "note": "Flaky, layered, hand-beaten",
+          "veg": true
+        },
+        {
+          "id": "ghee-rice",
+          "name": "Ghee Rice",
+          "ml": "നെയ്ച്ചോറ്",
+          "note": "With cashews and fried onion",
+          "veg": true
+        },
+        {
+          "id": "chicken-biriyani",
+          "name": "Chicken Biriyani",
+          "ml": "ചിക്കൻ ബിരിയാണി",
+          "note": "Kaima rice, dum-cooked",
+          "veg": false
+        },
+        {
+          "id": "matta-rice",
+          "name": "Kerala Matta Rice",
+          "ml": "കുത്തരി ചോറ്",
+          "note": "Red parboiled rice",
+          "veg": true
+        }
+      ]
+    },
+    {
+      "id": "non-veg",
+      "title": "Wedding Specials",
+      "ml": "നോൺ-വെജ്",
+      "items": [
+        {
+          "id": "chicken-stew",
+          "name": "Chicken Stew",
+          "ml": "ചിക്കൻ സ്റ്റൂ",
+          "note": "Coconut milk, whole spices — with appam",
+          "veg": false
+        },
+        {
+          "id": "mutton-stew",
+          "name": "Mutton Stew",
+          "ml": "മട്ടൻ സ്റ്റൂ",
+          "note": "Slow-cooked, mild and creamy",
+          "veg": false
+        },
+        {
+          "id": "chicken-roast",
+          "name": "Nadan Chicken Roast",
+          "ml": "നാടൻ ചിക്കൻ റോസ്റ്റ്",
+          "note": "Onion-pepper masala, dry roasted",
+          "veg": false
+        },
+        {
+          "id": "beef-ularthiyathu",
+          "name": "Beef Ularthiyathu",
+          "ml": "ബീഫ് ഉലർത്തിയത്",
+          "note": "Coconut slivers, curry leaves, black pepper",
+          "veg": false
+        },
+        {
+          "id": "duck-roast",
+          "name": "Duck Roast",
+          "ml": "താറാവ് റോസ്റ്റ്",
+          "note": "Kuttanad-style, rich and peppery",
+          "veg": false
+        },
+        {
+          "id": "fish-curry",
+          "name": "Kottayam Fish Curry",
+          "ml": "കോട്ടയം മീൻ കറി",
+          "note": "Red curry soured with kudampuli",
+          "veg": false
+        },
+        {
+          "id": "fish-moilee",
+          "name": "Fish Moilee",
+          "ml": "മീൻ മോളി",
+          "note": "Mild coconut milk curry",
+          "veg": false
+        },
+        {
+          "id": "karimeen",
+          "name": "Karimeen Pollichathu",
+          "ml": "കരിമീൻ പൊള്ളിച്ചത്",
+          "note": "Pearl spot, masala-wrapped in banana leaf",
+          "veg": false
+        }
+      ]
+    },
+    {
+      "id": "veg-mains",
+      "title": "Vegetarian Mains",
+      "ml": "വെജിറ്റേറിയൻ",
+      "items": [
+        {
+          "id": "veg-stew",
+          "name": "Vegetable Stew",
+          "ml": "വെജിറ്റബിൾ സ്റ്റൂ",
+          "note": "Coconut milk, mild spices",
+          "veg": true
+        },
+        {
+          "id": "kadala-curry",
+          "name": "Kadala Curry",
+          "ml": "കടല കറി",
+          "note": "Black chickpeas, roasted coconut",
+          "veg": true
+        },
+        {
+          "id": "paneer-butter-masala",
+          "name": "Paneer Butter Masala",
+          "ml": "പനീർ ബട്ടർ മസാല",
+          "note": "Silky tomato and cashew gravy",
+          "veg": true
+        },
+        {
+          "id": "mushroom-pepper",
+          "name": "Mushroom Pepper Fry",
+          "ml": "കൂൺ കുരുമുളക് ഫ്രൈ",
+          "note": "Tossed with crushed pepper",
+          "veg": true
+        }
+      ]
+    },
+    {
+      "id": "desserts",
+      "title": "Payasam & Desserts",
+      "ml": "പായസം",
+      "items": [
+        {
+          "id": "ada-pradhaman",
+          "name": "Ada Pradhaman",
+          "ml": "അട പ്രഥമൻ",
+          "note": "Rice ada, jaggery and coconut milk",
+          "veg": true
+        },
+        {
+          "id": "palada",
+          "name": "Palada Payasam",
+          "ml": "പാലട പായസം",
+          "note": "Pink, creamy, slow-reduced milk",
+          "veg": true
+        },
+        {
+          "id": "parippu-pradhaman",
+          "name": "Parippu Pradhaman",
+          "ml": "പരിപ്പ് പ്രഥമൻ",
+          "note": "Moong dal and jaggery",
+          "veg": true
+        },
+        {
+          "id": "semiya",
+          "name": "Semiya Payasam",
+          "ml": "സേമിയ പായസം",
+          "note": "Vermicelli, milk and cardamom",
+          "veg": true
+        },
+        {
+          "id": "caramel-pudding",
+          "name": "Caramel Pudding",
+          "ml": "കാരമൽ പുഡ്ഡിംഗ്",
+          "note": "The wedding-table favourite",
+          "veg": true
+        },
+        {
+          "id": "fruit-salad",
+          "name": "Fruit Salad & Ice Cream",
+          "ml": "ഫ്രൂട്ട് സാലഡ്",
+          "note": "Fresh-cut fruit, vanilla scoop",
+          "veg": true
+        },
+        {
+          "id": "gulab-jamun",
+          "name": "Gulab Jamun",
+          "ml": "ഗുലാബ് ജാമുൻ",
+          "note": "Warm, in rose-cardamom syrup",
+          "veg": true
+        }
+      ]
+    },
+    {
+      "id": "live",
+      "title": "Live Counters",
+      "ml": "ലൈവ് കൗണ്ടർ",
+      "items": [
+        {
+          "id": "live-appam",
+          "name": "Live Appam & Stew",
+          "ml": "അപ്പം ലൈവ്",
+          "note": "Appams off the pan, stew alongside",
+          "veg": false
+        },
+        {
+          "id": "kappa-meen",
+          "name": "Kappa & Meen Curry",
+          "ml": "കപ്പയും മീൻ കറിയും",
+          "note": "Tapioca with red fish curry",
+          "veg": false
+        },
+        {
+          "id": "live-dosa",
+          "name": "Live Dosa Counter",
+          "ml": "ദോശ ലൈവ്",
+          "note": "Ghee roast, masala and plain",
+          "veg": true
+        },
+        {
+          "id": "chaat",
+          "name": "Chaat Counter",
+          "ml": "ചാട്ട്",
+          "note": "Pani puri, bhel and dahi puri",
+          "veg": true
+        },
+        {
+          "id": "ice-cream",
+          "name": "Ice Cream Station",
+          "ml": "ഐസ്ക്രീം",
+          "note": "Scoops with toppings",
+          "veg": true
+        },
+        {
+          "id": "chaya",
+          "name": "Chaya & Palaharam",
+          "ml": "ചായയും പലഹാരവും",
+          "note": "Kerala tea with evening snacks",
+          "veg": true
+        }
+      ]
+    }
+  ],
+  "menuPresets": [
+    {
+      "title": "Traditional Sadya",
+      "note": "On banana leaf, with two payasams",
+      "items": [
+        "matta-rice",
+        "parippu",
+        "sambar",
+        "avial",
+        "thoran",
+        "olan",
+        "kaalan",
+        "erissery",
+        "pulissery",
+        "inji-puli",
+        "pachadi-kichadi",
+        "pappadam-upperi",
+        "ada-pradhaman",
+        "palada"
+      ]
+    },
+    {
+      "title": "Kerala Wedding Feast",
+      "note": "Appam, stew, roasts and pudding",
+      "items": [
+        "lime-soda",
+        "beef-cutlet",
+        "palappam",
+        "chicken-stew",
+        "beef-ularthiyathu",
+        "duck-roast",
+        "fish-curry",
+        "ghee-rice",
+        "veg-stew",
+        "caramel-pudding",
+        "fruit-salad"
+      ]
+    },
+    {
+      "title": "Reception Buffet",
+      "note": "Starters, biriyani and live counters",
+      "items": [
+        "passion-fruit",
+        "chicken-lollipop",
+        "paneer-tikka",
+        "porotta",
+        "chicken-biriyani",
+        "chicken-roast",
+        "paneer-butter-masala",
+        "live-dosa",
+        "gulab-jamun",
+        "ice-cream"
+      ]
+    }
+  ],
   "serviceAreas": [
     "Kozhikode",
     "Arayidathupalam"
   ],
-  "aboutBody": "{fullName} is based in {place}. From weddings and receptions to birthdays and family functions, we bring together stage decoration, catering, Nasik Dhol and event coordination. Tell us about your occasion, and we’ll help you plan the details."
+  "aboutBody": "{fullName} is based in {place}. From weddings and receptions to birthdays and family functions, we bring together stage decoration, catering, Nasik Dhol and event coordination. Tell us about your occasion, and we’ll help you plan the details.",
+  "serviceImages": {
+    "wedding-catering": "references/food-poster.webp",
+    "event-management": "references/carmel-floral-stage.webp",
+    "bulk-catering": "references/carmel-reception.webp"
+  }
 }

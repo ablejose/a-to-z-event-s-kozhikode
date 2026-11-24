@@ -153,6 +153,6 @@ export default function Footer() {
           <p>{copy.footer.note}</p>
         </div>
       </div>
-    </footer>
+    <div className="mx-auto max-w-shell px-6 pb-8 text-center text-xs"><a href="/media-credits/" className="underline underline-offset-4">Media credits</a></div></footer>
   );
 }

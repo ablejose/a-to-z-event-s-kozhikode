@@ -38,3 +38,6 @@ export const aboutImages: GalleryItem[] = event.media.about.map((a, i) =>
 );
 
 export const gallerySettings = templateCopy.gallerySettings;
+
+const food = event.media.food;
+export const foodVideo = food ? { ...food, src: asset(food.src), poster: asset(food.poster) } : null;

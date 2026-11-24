@@ -6,7 +6,9 @@ The template source was copied directly: original full-screen slideshow hero, he
 
 The client tagline is transcribed from their poster: We Plan. We Decorate. We Celebrate!
 
-The gallery uses actual ZIP photographs and a six-second muted H.264 Nasik Dhol clip. Service cards keep the original template imagery. About has exactly two client images. No logo was substituted. Ratings/reviews are empty; AllInOne reviews and menus were not copied. Without a supplied current menu, quote buttons lead to Contact.
+The original ZIP media was replaced at the user’s request with local reference assets from All In One, Carmel and Wonders. The restored menu is the existing template quote builder. Ratings/reviews remain empty. Source credits are available at /media-credits/.
 
 Build: npm run build, 64-bit Node, Next.js static export.
 Release: codex/a-to-z-rebuild; no PR. Vercel only in able8, project a-to-z-event-s-kozhikode. No credentials are saved in the repository.
+
+Updated logo from the supplied image using built-in image generation: preserve the original red/white/black design and restore crisp edges and lettering. Logo-only loader and larger hero logo. Replaced all displayed hero/gallery/about/service media with local reference assets from All In One, Carmel and Wonders, per user instruction; source credits at /media-credits/. Added Wonders-style side-by-side food film and restored the existing menu quote builder.

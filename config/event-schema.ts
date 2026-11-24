@@ -189,6 +189,7 @@ export interface EventConfig {
     heroSlides?: GalleryEntry[];
     /** Transparent brand mark (PNG/SVG) used in the loader and header. Optional. */
     logoMark?: MediaPath;
+    food?: { src: MediaPath; poster: MediaPath; alt: string };
     /** 1200x630 social share image. */
     ogImage: MediaPath;
     /** Favicon/app-icon folder for this brand. */
